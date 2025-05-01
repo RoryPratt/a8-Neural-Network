@@ -73,6 +73,11 @@ class Expression:
 parsed_answers = [[Expression(answer[2:]) for answer in answers] for answers in df["options"]]
 
 
-answers = ["A", "B", "C", "D", "E"]
-
 prcs_df = pd.DataFrame()
+
+for parsed_answer in parsed_answers:
+	row = []
+	for idx in range(len(parsed_answer)):
+		compared = []
+		for i in range(idx, 5):
+			compared = parsed_answer[idx].compare()
