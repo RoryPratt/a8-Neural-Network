@@ -78,6 +78,8 @@ prcs_df = pd.DataFrame()
 for parsed_answer in parsed_answers:
 	row = []
 	for idx in range(len(parsed_answer)):
-		compared = []
-		for i in range(idx, 5):
-			compared = parsed_answer[idx].compare()
+		for i in range(idx+1, 5):
+			row += parsed_answer[idx].compare(parsed_answer[i])
+
+		
+	
