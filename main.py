@@ -12,7 +12,7 @@ print("Loading Data...")
 
 df = pd.read_pickle("data.pkl")
 
-df = df.sample(frac=1).reset_index(drop=True)[:2000]
+df = df.sample(frac=1).reset_index(drop=True)[:1500]
 
 df["input"] = df["input"].apply(normalize)
 
@@ -42,7 +42,7 @@ else:
 
 print("Training Neural Net...")
 
-neural_net.train(train_data, iters=5000, print_interval=10)
+neural_net.train(train_data, iters=1000, print_interval=10)
 
 model_state = {
     "ih_weights": neural_net.get_ih_weights(),

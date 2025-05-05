@@ -20,9 +20,9 @@ class Expression:
 		self.term_factors = {}
 		self.next_var = 48
 		self.reversed_term_factors = {}
+		self.numeric_factors = []
 		self.parsed_terms = [self.parse_term(term) for term in self.raw_terms]
 		self.length = len(expression)
-		self.numeric_factors = []
 
 	def __str__(self):
 		out = []
@@ -42,8 +42,8 @@ class Expression:
 	
 	def extract_factors(self, term):
 		algebreic = re.sub(r'-?\d+', '', term)
-		nums = [float(num) for num in re.findall(r'-?\d+(?:\.\d+)?', term)]
-		self.numeric_factors = nums
+		nums = [float(num) for num in re.findall(r'-?(?:\d*\.\d+|\d+)(?:[eE][-+]?\d+)?', term)]
+		self.numeric_factors += nums
 		return (algebreic, nums)
 
 	def parse_term(self, term):
@@ -78,7 +78,7 @@ class Expression:
 
 					possible = a if abs(a - 1) < abs(b - 1) and a != 0 else b
 			factor_ratios.append(possible)
-		return [statistics.mean(factor_ratios), statistics.stdev(factor_ratios)]
+		return [statistics.mean(factor_ratios), statistics.stdev(factor_ratios) if len(factor_ratios) > 1 else 0]
 	
 	def get_common_elements(self, list1, list2):
 		return list(set(list1) & set(list2))
